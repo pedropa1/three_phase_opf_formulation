@@ -6,7 +6,7 @@ def three_phase_opf_model(V0, Data_Network):
     #%% Data Processing
     N = Data_Network[0]
     L = Data_Network[1]
-    Tb = Data_Network[2]
+    Tn = Data_Network[2]
     
     # Power
     PDa = Data_Network[3]
@@ -44,7 +44,7 @@ def three_phase_opf_model(V0, Data_Network):
     model.L = Set(initialize=L)    # Set of lines 
     
     # Define Parameters
-    model.Tb = Param(model.N, initialize=Tb, mutable=True)    # Type of node. SS node == 1
+    model.Tn = Param(model.N, initialize=Tn, mutable=True)    # Type of node. SS node == 1
     model.V0 = Param(initialize=V0, mutable=True)
     
     # Network Parameters
@@ -81,7 +81,7 @@ def three_phase_opf_model(V0, Data_Network):
     # Voltages 
     # --------------------------------------------
     def Va_init_rule(model, i):
-        if model.Tb[i] == 1:
+        if model.Tn[i] == 1:
             temp = model.V0
             model.Va[i].fixed = True
         else:
@@ -91,7 +91,7 @@ def three_phase_opf_model(V0, Data_Network):
     model.Va = Var(model.N, initialize = Va_init_rule)  # Voltage Phase A
     
     def Vb_init_rule(model, i):
-        if model.Tb[i] == 1:
+        if model.Tn[i] == 1:
             temp = model.V0
             model.Vb[i].fixed = True
         else:
@@ -101,7 +101,7 @@ def three_phase_opf_model(V0, Data_Network):
     model.Vb = Var(model.N, initialize = Vb_init_rule)  # Voltage Phase B
     
     def Vc_init_rule(model, i):
-        if model.Tb[i] == 1:
+        if model.Tn[i] == 1:
             temp = model.V0
             model.Vc[i].fixed = True
         else:
@@ -116,7 +116,7 @@ def three_phase_opf_model(V0, Data_Network):
     
     # Active and Reactive Power of the Substation
     def PSa_init_rule(model, i):
-        if model.Tb[i] == 0:
+        if model.Tn[i] == 0:
             temp = 0
             model.PSa[i].fixed = True
         else:
@@ -126,7 +126,7 @@ def three_phase_opf_model(V0, Data_Network):
     model.PSa = Var(model.N, initialize = PSa_init_rule)  # Active Power SS Phase A
     
     def PSb_init_rule(model, i):
-        if model.Tb[i] == 0:
+        if model.Tn[i] == 0:
             temp = 0
             model.PSb[i].fixed = True
         else:
@@ -136,7 +136,7 @@ def three_phase_opf_model(V0, Data_Network):
     model.PSb = Var(model.N, initialize = PSb_init_rule)  # Active Power SS Phase B
     
     def PSc_init_rule(model, i):
-        if model.Tb[i] == 0:
+        if model.Tn[i] == 0:
             temp = 0
             model.PSc[i].fixed = True
         else:
@@ -146,7 +146,7 @@ def three_phase_opf_model(V0, Data_Network):
     model.PSc = Var(model.N, initialize = PSc_init_rule)  # Active Power SS Phase C
     
     def QSa_init_rule(model, i):
-        if model.Tb[i] == 0:
+        if model.Tn[i] == 0:
             temp = 0
             model.QSa[i].fixed = True
         else:
@@ -156,7 +156,7 @@ def three_phase_opf_model(V0, Data_Network):
     model.QSa = Var(model.N, initialize = QSa_init_rule)  # Reactive Power SS Phase A
     
     def QSb_init_rule(model, i):
-        if model.Tb[i] == 0:
+        if model.Tn[i] == 0:
             temp = 0
             model.QSb[i].fixed = True
         else:
@@ -166,7 +166,7 @@ def three_phase_opf_model(V0, Data_Network):
     model.QSb = Var(model.N, initialize = QSb_init_rule)  # Reactive Power SS Phase A
     
     def QSc_init_rule(model, i):
-        if model.Tb[i] == 0:
+        if model.Tn[i] == 0:
             temp = 0
             model.QSc[i].fixed = True
         else:
