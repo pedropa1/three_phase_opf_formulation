@@ -2,7 +2,7 @@
 def system_data_for_pyomo(System_Data_Nodes, System_Data_Lines_Prima):
     # Network Data
     N = [System_Data_Nodes.loc[i,'N'] for i in System_Data_Nodes.index]
-    Tb = {N[i]: System_Data_Nodes.loc[i,'Tb'] for i in System_Data_Nodes.index}
+    Tn = {N[i]: System_Data_Nodes.loc[i,'Tn'] for i in System_Data_Nodes.index}
     PDa = {N[i]: System_Data_Nodes.loc[i,'PDa'] for i in System_Data_Nodes.index}      
     QDa = {N[i]: System_Data_Nodes.loc[i,'QDa'] for i in System_Data_Nodes.index} 
     PDb = {N[i]: System_Data_Nodes.loc[i,'PDb'] for i in System_Data_Nodes.index}      
@@ -30,6 +30,6 @@ def system_data_for_pyomo(System_Data_Nodes, System_Data_Lines_Prima):
     Xcb_p = {(System_Data_Lines_Prima.loc[i,'FROM'],System_Data_Lines_Prima.loc[i,'TO']):System_Data_Lines_Prima.loc[i,'Xcb_p'] for i in System_Data_Lines_Prima.index}     
     Imax = {(System_Data_Lines_Prima.loc[i,'FROM'],System_Data_Lines_Prima.loc[i,'TO']):System_Data_Lines_Prima.loc[i,'Imax'] for i in System_Data_Lines_Prima.index}
         
-    Data_Network = [N, L, Tb, PDa, PDb, PDc, QDa, QDb, QDc, Raa_p, Xaa_p, Rbb_p, Xbb_p, Rcc_p, Xcc_p, Rab_p, Xab_p, Rac_p, Xac_p, Rbc_p, Xbc_p, Rba_p, Xba_p, Rca_p, Xca_p, Rcb_p, Xcb_p, Imax]
+    Data_Network = [N, L, Tn, PDa, PDb, PDc, QDa, QDb, QDc, Raa_p, Xaa_p, Rbb_p, Xbb_p, Rcc_p, Xcc_p, Rab_p, Xab_p, Rac_p, Xac_p, Rbc_p, Xbc_p, Rba_p, Xba_p, Rca_p, Xca_p, Rcb_p, Xcb_p, Imax]
     
     return Data_Network
